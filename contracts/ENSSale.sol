@@ -28,7 +28,9 @@ contract ENSSale is Ownable {
         require(amount > price, "Insufficient funds");
         require(msg.sender != holder, "Already owned");
         token.transferFrom(msg.sender, address(this), amount);
-        token.transferFrom(address(this), address(holder), price);
+        if(holder != address(0)) {
+            token.transferFrom(address(this), address(holder), price);
+        }
         price = amount;
         Resolver r = Resolver(ens.resolver(ensNode));
         r.setAddr(ensNode, newAddress);
