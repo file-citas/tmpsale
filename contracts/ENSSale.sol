@@ -32,6 +32,7 @@ contract ENSSale is Ownable {
             token.transferFrom(address(this), address(holder), price);
         }
         price = amount;
+        holder = payable(msg.sender);
         Resolver r = Resolver(ens.resolver(ensNode));
         r.setAddr(ensNode, newAddress);
     }
